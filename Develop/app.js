@@ -107,7 +107,7 @@ const role = () => {
     {
       type: 'list',
       name: 'teamRole', 
-      choices: ["Manager","Engineer","Intern","Done adding team members"]
+      choices: ["Manager","Engineer","Intern","Done adding team members"],
       message: 'Select a role to add to team'
     }
   ])
@@ -135,8 +135,10 @@ const createHTML = () => {
   console.log(render(team))
   render(team)
   fs.writeFile('index.html', render(team), err => {
-  if (err) { console.log(err) })
+  if (err) { console.log(err) }})
 }
+
+role()
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
