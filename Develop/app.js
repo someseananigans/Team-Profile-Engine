@@ -1,7 +1,7 @@
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
-const inquirer = require("inquirer");
+const { prompt } = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
@@ -10,11 +10,133 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-const employees = [new Intern('John Doe', 1, 'johndoe@gmail.com', 'USC'), new Intern('Jane Doe', 2, 'janedoe@gmail.com', 'UCLA')]
+let team = []
 
-fs.writeFile(outputPath, render(employees), err => {
-  if (err) { console.log(err) }
-})
+const manager = () => {
+  prompt([
+    {
+      type: 'input',
+      name: 'name',
+      message: 'What is your name?'
+    },
+    {
+      type: 'input',
+      name: 'id',
+      message: 'What is your id?'
+    },
+    {
+      type: 'input',
+      name: 'email',
+      message: 'What is your email?'
+    },
+    {
+      type: 'input',
+      name: 'officeNumber',
+      message: 'What is your offficeNumber?'
+    },
+  ])
+  .then(manager => {
+    team.push(new Manager(manager.name, manager.id, manager.email, manager.officeNumber))
+    role()
+  })
+  .catch(err => console.log(err))
+}
+
+const engineer = () => {
+  prompt([
+    {
+      type: 'input',
+      name: 'name',
+      message: 'What is your name?'
+    },
+    {
+      type: 'input',
+      name: 'id',
+      message: 'What is your id?'
+    },
+    {
+      type: 'input',
+      name: 'email',
+      message: 'What is your email?'
+    },
+    {
+      type: 'input',
+      name: 'github',
+      message: 'What is your github?'
+    },
+  ])
+  .then(engineer => {
+    team.push(new Engineer(engineer.name, engineer.id, engineer.email, engineer.github))
+    role()
+  })
+  .catch(err => console.log(err))
+}
+
+const intern = () => {
+  prompt([
+    {
+      type: 'input',
+      name: 'name',
+      message: 'What is your name?'
+    },
+    {
+      type: 'input',
+      name: 'id',
+      message: 'What is your id?'
+    },
+    {
+      type: 'input',
+      name: 'email',
+      message: 'What is your email?'
+    },
+    {
+      type: 'input',
+      name: 'school',
+      message: 'What is your school?'
+    },
+  ])
+  .then(intern => {
+    team.push(new Intern(intern.name, intern.id, intern.email, intern.school))
+    role()
+  })
+  .catch(err => console.log(err))
+}
+
+const role = () => {
+  prompt([
+    {
+      type: 'list',
+      name: 'teamRole', 
+      choices: ["Manager","Engineer","Intern","Done adding team members"]
+      message: 'Select a role to add to team'
+    }
+  ])
+  .then(({teamRole}) => {
+    switch (teamRole) {
+      case "Manager":
+        manager()
+        break;
+      case "Engineer":
+        engineer()
+        break;
+      case "Intern":
+        intern()
+        break;
+      case "Done adding team members":
+        createHTML()
+        break;
+    }
+  })
+  .catch(err => console.log(err))
+}
+
+const createHTML = () => {
+  console.log('this is the html')
+  console.log(render(team))
+  render(team)
+  fs.writeFile('index.html', render(team), err => {
+  if (err) { console.log(err) })
+}
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
