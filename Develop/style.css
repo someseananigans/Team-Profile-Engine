@@ -1,0 +1,23 @@
+.card-header {
+  background-color: rgb(44, 153, 255);
+  color: white;
+}
+
+.employee-card {
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+  margin: 10px;
+  width: 270px;
+}
+
+.card-title {
+  font-size: 1.75rem;
+}
+
+h3.card-title {
+  font-size: 1.5rem;
+}
+
+.jumbotron {
+  background-color: rgb(255, 73, 103);
+  color: white;
+}
