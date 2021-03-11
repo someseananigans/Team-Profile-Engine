@@ -32,7 +32,7 @@ const manager = () => {
     {
       type: 'input',
       name: 'officeNumber',
-      message: 'What is your offficeNumber?'
+      message: 'What is your officeNumber?'
     },
   ])
   .then(manager => {
